@@ -13,10 +13,10 @@ class App extends React.Component {
   }
 
   getCats = async () => {
-    console.log('I fired');
+  
     try {
       let results = await axios.get(`${SERVER}/cats`);
-      console.log(results.data);
+
       this.setState({
         cats: results.data
       })
@@ -25,15 +25,11 @@ class App extends React.Component {
     }
   }
 
-  // net effect is that when the site load (I should say this specific component loads), the data will be displayed
-  componentDidMount() {
-    this.getCats();
-  }
 
   render() {
-    console.log(this.state.cats);
+   
     let cats = this.state.cats.map(cat => (
-      <p key={cat._id}>{cat.name} is {cat.color}</p>
+      <p>{cat.name} is {cat.color}</p>
     ))
     return (
       <>
