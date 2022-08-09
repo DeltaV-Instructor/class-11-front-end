@@ -44,7 +44,7 @@ class App extends React.Component {
           this.state.cats.length > 0 &&
           <>
           {/* create a prop to pass to the CAT component it needs the cat {} */}
-           <Cats cat={this.state.cats}/>
+           <Cats cats={this.state.cats}/>
           </>
         }
         </main>
