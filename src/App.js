@@ -73,7 +73,24 @@ deleteCats = async (id) => {
 };
 
 
-
+updateCats = async (catToUpdate) =>{
+  try {
+    //need url
+    let url = `${SERVER}/cats/${catToUpdate._id}`;
+    let updatedCat = await axios.put(url, catToUpdate);
+    //filter will not work so what we need to do is get all cats and update the old cat with the cat. so we use our friend the map()
+    let updateCatArray = this.state.cats.map(exsistingCat => {
+      return exsistingCat._id === catToUpdate._id
+      ? updatedCat.data
+      : exsistingCat
+    });
+    this.setState({
+      cats: updateCatArray
+    });
+  } catch (error) {
+    console.error('we have an Errrorrr!', error.response.data);
+  }
+};
 
 
 
@@ -110,7 +127,11 @@ deleteCats = async (id) => {
           this.state.cats.length > 0 &&
           <>
           {/* create a prop to pass to the CAT component it needs the cat {} */}
-           <Cats cats={this.state.cats}    deleteCats={this.deleteCats}    />
+           <Cats 
+           cats={this.state.cats}
+           deleteCats={this.deleteCats}   
+           updateCats={this.updateCats}
+            />
           </>
         }
 
